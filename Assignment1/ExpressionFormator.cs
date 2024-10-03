@@ -107,5 +107,10 @@ namespace Assignment1
 
             return 0;
         }
+
+        public void InfixCheck()
+        {
+            
+        }
     }
 }
