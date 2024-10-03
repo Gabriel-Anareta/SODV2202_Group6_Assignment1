@@ -109,6 +109,9 @@ namespace Assignment1
             if (root.Left == null && root.Right == null)
                 return root.Value;
 
+            string Right = CreateTreeString(root.Right);
+            string Left = CreateTreeString(root.Left);
+
             return "";
         }
     }
