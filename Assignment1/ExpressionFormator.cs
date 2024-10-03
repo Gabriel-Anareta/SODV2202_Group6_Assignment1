@@ -35,7 +35,7 @@ namespace Assignment1
                         continue;
                     }
 
-                    while (/* priority checking */)  // keep popping stack until latest item in stack has a lower priority than checked item
+                    while (SetPriority(stack.Peek()) >= SetPriority(infix[i]))  // keep popping stack until latest item in stack has a lower priority than checked item
                     {
                         char popped = stack.Pop();
                         postfix.Append(popped + " ");
