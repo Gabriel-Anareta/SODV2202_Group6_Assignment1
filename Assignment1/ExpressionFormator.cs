@@ -8,6 +8,11 @@ namespace Assignment1
 {
     internal class ExpressionFormator
     {
+        public class InvalidFormatException : Exception
+        {
+            public InvalidFormatException(string message) : base(message) { }
+        }
+
         public string InfixToPostfix(string infix)
         {
             StringBuilder postfix = new StringBuilder();
