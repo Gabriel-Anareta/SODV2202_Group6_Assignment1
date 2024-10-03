@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -116,6 +117,30 @@ namespace Assignment1
 
         public void InfixCheck(string infix)
         {
+            bool parenthesisCheck = true;
+            int parenthesisCounter = 0;
+            int indexCounter = 0;
+            for (int i = 0; i < infix.Length; i++)
+            {
+                if (parenthesisCounter >= 0 && infix[i] == '(')
+                {
+                    parenthesisCounter++;
+                }
+
+                if (infix[i] == ')')
+                {
+                    parenthesisCounter--;
+                }
+
+                if (parenthesisCounter < 0)
+                {
+                    throw new InvalidFormatException(") must be preceded by a (");
+                }
+
+                if (i + indexCounter == infix.Length)
+                    break;
+            }
+
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
             bool prevIsOperator = false;    // distinguishes minus and negative operators
@@ -139,19 +164,7 @@ namespace Assignment1
                     prevIsOperator = true;
                 }
 
-                prevIsOperator = false;
-
-                if (infix[i] == '(')
-                {
-                    
-                }
-
-                if (infix[i] == ')')
-                {
-                    
-                }
-
-                int indexCounter = 0;
+                indexCounter = 0;
                 int decimalCounter = 0;
                 while (                                 // checking number values
                     Char.IsDigit(infix[i + indexCounter])
@@ -164,9 +177,13 @@ namespace Assignment1
 
                     if (decimalCounter > 1)
                         throw new InvalidFormatException("Numbers can only have 1 decimal point");
+
+                    if (i + indexCounter == infix.Length)
+                        break;
                 }
 
                 i += indexCounter - 1;
+                prevIsOperator = false;
             }
         }
     }
