@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -113,9 +114,55 @@ namespace Assignment1
             return 0;
         }
 
-        public void InfixCheck()
+        public void InfixCheck(string infix)
         {
-            
+            List<char> operators = new List<char> { '*', '/', '+', '-' };
+
+            bool prevIsOperator = false;    // distinguishes minus and negative operators
+
+            for (int i = 0; i < infix.Length; i++)
+            {
+                if (infix[i] == ' ') continue;  // function ignores whitespaces in expression bewteen operators and operands
+
+                bool isPositive = true;
+                if (                                // checking for negatives
+                    infix[i] == '-'
+                    && Char.IsDigit(infix[i + 1])
+                    && prevIsOperator
+                )
+                {
+                    isPositive = false;
+                }
+
+                if (operators.Contains(infix[i]) && isPositive)     // checking for operators
+                {
+                    prevIsOperator = true;
+                }
+
+                prevIsOperator = false;
+
+                if (infix[i] == '(')
+                {
+                    
+                }
+
+                if (infix[i] == ')')
+                {
+                    
+                }
+
+                int counter = 0;
+                while (                                 // pushing number to postfix - makes exeptions for decimal places and negative values
+                    Char.IsDigit(infix[i + counter])
+                    || infix[i + counter] == '.'
+                    || (infix[i + counter] == '-' && counter == 0)
+                )
+                {
+                    
+                }
+
+                i += counter - 1;
+            }
         }
     }
 }
