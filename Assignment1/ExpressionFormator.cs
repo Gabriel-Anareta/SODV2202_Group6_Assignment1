@@ -52,7 +52,16 @@ namespace Assignment1
 
         public int SetPriority(char symbol)
         {
+            switch (symbol)
+            {
+                case '^': return 3;
+                case '*': return 2;
+                case '/': return 2;
+                case '+': return 1;
+                case '-': return 1;
+            }
 
+            return 0;
         }
     }
 }
