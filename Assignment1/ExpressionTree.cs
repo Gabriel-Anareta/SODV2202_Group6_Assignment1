@@ -61,7 +61,7 @@ namespace Assignment1
                 stack.Push(current);
             }
 
-            return null;
+            return stack.Pop(); // return root node;
         }
     }
 }
