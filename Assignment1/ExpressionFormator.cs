@@ -16,6 +16,8 @@ namespace Assignment1
 
             for (int i = 0; i < infix.Length; i++)
             {
+                if (infix[i] == ' ') continue;  // function ignores whitespaces in expression bewteen operators and operands
+
                 bool isPositive = true;
                 if (                                // checking for negatives
                     infix[i] == '-'
@@ -24,6 +26,8 @@ namespace Assignment1
                 {
                     isPositive = false;
                 }
+
+
             }
 
             return "";
