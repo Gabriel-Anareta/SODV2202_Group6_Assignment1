@@ -66,6 +66,8 @@ namespace Assignment1
 
         public double Evaluate(Node root)
         {
+            if (root == null) return 0;
+
             return 0;
         }
     }
