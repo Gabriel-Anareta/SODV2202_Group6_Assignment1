@@ -76,6 +76,22 @@ namespace Assignment1
             {
                 double left = Evaluate(root.Left);      // evaluate left node
                 double right = Evaluate(root.Right);    // evaluate right node
+
+                switch (new string(root.Value.ToArray()))   // perform operation on left and right node - Displays actions taken in order
+                {
+                    case "*":
+                        Console.WriteLine(right + " * " + left + ": " + (right * left));
+                        return right * left;
+                    case "/":
+                        Console.WriteLine(right + " / " + left + ": " + (right / left));
+                        return right / left;
+                    case "+":
+                        Console.WriteLine(right + " + " + left + ": " + (right + left));
+                        return right + left;
+                    case "-":
+                        Console.WriteLine(right + " - " + left + ": " + (right - left));
+                        return right - left;
+                }
             }
 
             return 0;
