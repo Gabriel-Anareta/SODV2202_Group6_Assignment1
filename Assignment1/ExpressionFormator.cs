@@ -121,7 +121,7 @@ namespace Assignment1
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
             bool prevIsOperator = false;    // distinguishes minus and negative operators
-            bool prevIsNumber = false;
+            bool prevIsNumber = false;      // records previous type
 
             for (int i = 0; i < infix.Length; i++)
             {
@@ -142,11 +142,61 @@ namespace Assignment1
                     prevIsOperator = true;
                     prevIsNumber = false;
 
+                    bool foundNextChar = true;
+                    int nextCharCounter = 0;
+                    while (foundNextChar)   // check for empty space in front of operators
+                    {
+                        if (infix[i + nextCharCounter] != ' ')
+                        {
+                            if (infix[i + nextCharCounter] == ')')
+                                throw new InvalidFormatException("operations cannot be directly followed by )");
+                            
+                            foundNextChar = false;
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                            
+                        nextCharCounter++;
+                        if (i + nextCharCounter == infix.Length)
+                            throw new InvalidFormatException("operations must be followed by an operand");
+
+                        i += nextCharCounter - 1;
+                    }
+
                     int counter = 0;
                     while (true)
                     {
-                        
+                        if (infix[i + counter] == ' ')
+                            continue;
+
+                        if (                                // checking for negatives
+                            infix[i] == '-'
+                            && Char.IsDigit(infix[i + counter + 1])
+                        )
+                        {
+                            isPositive = false;
+                        }
+
+                        if (operators.Contains(infix[i + counter]) && !isPositive)
+                            throw new InvalidFormatException("operators must be followed by an operand");
+
+                        if (
+                            infix[i + counter + 1] == '0'
+                            && infix[i] == '/'
+                        )
+                        {
+                            throw new InvalidFormatException("Cannot divide by zero");
+                        }
+
+                        counter++;
+                        if (i + counter == infix.Length)
+                            break;
                     }
+
+                    i += counter - 1;
+                    continue;
                 }
 
                 int parenthesisCounter = 0;
