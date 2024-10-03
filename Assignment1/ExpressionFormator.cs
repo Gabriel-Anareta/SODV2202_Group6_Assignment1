@@ -64,7 +64,11 @@ namespace Assignment1
                 }
 
                 int counter = 0;
-                while (Char.IsDigit(infix[i + counter]))    // pushing number to postfix - makes exeptions for decimal places and negative values
+                while (                                 // pushing number to postfix - makes exeptions for decimal places and negative values
+                    Char.IsDigit(infix[i + counter])
+                    || infix[i + counter] == '.'
+                    || (infix[i + counter] == '-' && counter == 0)
+                )
                 {
                     postfix.Append(infix[i + counter++]);
                     if (i + counter == infix.Length) break;
