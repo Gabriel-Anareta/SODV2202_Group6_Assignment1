@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -120,6 +121,7 @@ namespace Assignment1
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
             bool prevIsOperator = false;    // distinguishes minus and negative operators
+            bool prevIsNumber = false;
 
             for (int i = 0; i < infix.Length; i++)
             {
@@ -138,17 +140,31 @@ namespace Assignment1
                 if (operators.Contains(infix[i]) && isPositive)     // checking for operators
                 {
                     prevIsOperator = true;
+                    prevIsNumber = false;
+
+                    int counter = 0;
+                    while (true)
+                    {
+                        
+                    }
                 }
 
                 int parenthesisCounter = 0;
-                if (parenthesisCounter >= 0 && infix[i] == '(')
+                if (infix[i] == '(')
                 {
-                    parenthesisCounter++;
+                    if (parenthesisCounter >= 0)
+                        parenthesisCounter++;
+
+                    if (prevIsNumber) 
+                        throw new InvalidFormatException("( must follow an operator");
                 }
 
                 if (infix[i] == ')')
                 {
                     parenthesisCounter--;
+
+                    if (prevIsOperator)
+                        throw new InvalidFormatException(") must follow a number");
                 }
 
                 if (parenthesisCounter < 0)
@@ -176,6 +192,7 @@ namespace Assignment1
 
                 i += indexCounter - 1;
                 prevIsOperator = false;
+                prevIsNumber = true;
             }
         }
     }
