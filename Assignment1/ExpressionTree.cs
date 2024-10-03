@@ -94,7 +94,7 @@ namespace Assignment1
                 }
             }
 
-            return 0;
+            return double.Parse(new string(root.Value.ToArray()));  // if node is a leaf node return number found at node
         }
     }
 }
