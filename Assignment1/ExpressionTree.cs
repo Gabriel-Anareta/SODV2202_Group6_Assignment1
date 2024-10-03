@@ -32,6 +32,13 @@ namespace Assignment1
                         isPositive = false;
                     }
                 }
+
+                if (operators.Contains(postfix[i]) && isPositive)   // if an operator is found, set node that points to other expressions
+                {
+                    current = new Node(postfix[i]);
+                    current.Left = stack.Pop();
+                    current.Right = stack.Pop();
+                }
             }
 
             return null;
