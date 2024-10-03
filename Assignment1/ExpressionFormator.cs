@@ -49,5 +49,10 @@ namespace Assignment1
 
             return "";
         }
+
+        public int SetPriority(char symbol)
+        {
+
+        }
     }
 }
