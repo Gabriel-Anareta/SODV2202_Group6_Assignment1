@@ -39,6 +39,22 @@ namespace Assignment1
                     current.Left = stack.Pop();
                     current.Right = stack.Pop();
                 }
+                else                                                // if a number is found, set as leaf node
+                {
+                    StringBuilder numValue = new StringBuilder();
+
+                    int counter = 0;
+                    while (Char.IsDigit(postfix[i + counter]))      // pushing number to postfix - makes exeptions for decimal places and negative values
+                    {
+                        numValue.Append(postfix[i + counter++]);
+                        if (i + counter == postfix.Length) break;
+                    }
+
+                    i += counter - 1;
+                    current = new Node(numValue.ToString());
+                }
+
+                stack.Push(current);
             }
 
             return null;
