@@ -104,7 +104,12 @@ namespace Assignment1
 
         public string CreateTreeString(Node root)
         {
+            if (root == null) return "";
 
+            if (root.Left == null && root.Right == null)
+                return root.Value;
+
+            return "";
         }
     }
 }
