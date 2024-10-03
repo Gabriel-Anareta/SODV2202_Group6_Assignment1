@@ -151,17 +151,22 @@ namespace Assignment1
                     
                 }
 
-                int counter = 0;
-                while (                                 // pushing number to postfix - makes exeptions for decimal places and negative values
-                    Char.IsDigit(infix[i + counter])
-                    || infix[i + counter] == '.'
-                    || (infix[i + counter] == '-' && counter == 0)
+                int indexCounter = 0;
+                int decimalCounter = 0;
+                while (                                 // checking number values
+                    Char.IsDigit(infix[i + indexCounter])
+                    || infix[i + indexCounter] == '.'
+                    || (infix[i + indexCounter] == '-' && indexCounter == 0)
                 )
                 {
-                    
+                    if (infix[i + indexCounter] == '.') 
+                        decimalCounter += 1;
+
+                    if (decimalCounter > 1)
+                        throw new InvalidFormatException("Numbers can only have 1 decimal point");
                 }
 
-                i += counter - 1;
+                i += indexCounter - 1;
             }
         }
     }
