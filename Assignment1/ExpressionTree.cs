@@ -99,10 +99,10 @@ namespace Assignment1
 
         public override string ToString()   // For debugging of tree
         {
-            return "";
+            return CreateTreeString(Root);
         }
 
-        public string CreateTreeString(Node root)
+        public string CreateTreeString(Node root)   // Can create tree string dynamically based on given node of tree
         {
             if (root == null) return "";
 
