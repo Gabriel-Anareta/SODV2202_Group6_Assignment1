@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace Assignment1
 {
+    public class DivideByZeroException : Exception
+    {
+        public DivideByZeroException(string message) : base(message) { }
+    }
+
     internal class ExpressionTree
     {
         public Node Root { get; set; }
@@ -83,6 +88,9 @@ namespace Assignment1
                         Console.WriteLine(right + " * " + left + " = " + (right * left));
                         return right * left;
                     case "/":
+                        if (left == 0)
+                            throw new DivideByZeroException("cannot divide by zero");
+
                         Console.WriteLine(right + " / " + left + " = " + (right / left));
                         return right / left;
                     case "+":
