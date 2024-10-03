@@ -62,6 +62,17 @@ namespace Assignment1
                     stack.Pop();
                     continue;
                 }
+
+                int counter = 0;
+                while (Char.IsDigit(infix[i + counter]))    // pushing number to postfix - makes exeptions for decimal places and negative values
+                {
+                    postfix.Append(infix[i + counter++]);
+                    if (i + counter == infix.Length) break;
+                }
+
+                postfix.Append(" ");
+
+                i += counter - 1;
             }
 
             return "";
