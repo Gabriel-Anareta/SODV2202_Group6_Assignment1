@@ -63,5 +63,10 @@ namespace Assignment1
 
             return stack.Pop(); // return root node;
         }
+
+        public double Evaluate(Node root)
+        {
+            return 0;
+        }
     }
 }
