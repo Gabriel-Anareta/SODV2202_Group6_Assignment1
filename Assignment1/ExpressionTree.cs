@@ -24,6 +24,8 @@ namespace Assignment1
 
             for (int i = 0; i < postfix.Length; i++)
             {
+                if (postfix[i] == ' ') continue;
+
                 bool isPositive = true;
                 if (i + 1 != postfix.Length)    // checking for index bounds
                 {
@@ -67,6 +69,7 @@ namespace Assignment1
         public double Evaluate(Node root)
         {
             if (root == null) return 0;
+
 
             return 0;
         }
