@@ -70,6 +70,13 @@ namespace Assignment1
         {
             if (root == null) return 0;
 
+            List<string> operands = new List<string> { "*", "/", "+", "-" };
+
+            if (operands.Contains(root.Value))   // if operator is found, execute this block
+            {
+                double left = Evaluate(root.Left);      // evaluate left node
+                double right = Evaluate(root.Right);    // evaluate right node
+            }
 
             return 0;
         }
