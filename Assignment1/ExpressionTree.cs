@@ -112,7 +112,12 @@ namespace Assignment1
             string Right = CreateTreeString(root.Right);
             string Left = CreateTreeString(root.Left);
 
-            return "";
+            string TreeString = Right + " " + root.Value + " " + Left;
+
+            if (root.Value == "*" || root.Value == "/" || root == Root)
+                return TreeString;
+
+            return "(" + TreeString + ")";
         }
     }
 }
