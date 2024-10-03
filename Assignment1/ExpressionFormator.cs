@@ -117,30 +117,6 @@ namespace Assignment1
 
         public void InfixCheck(string infix)
         {
-            bool parenthesisCheck = true;
-            int parenthesisCounter = 0;
-            int indexCounter = 0;
-            for (int i = 0; i < infix.Length; i++)
-            {
-                if (parenthesisCounter >= 0 && infix[i] == '(')
-                {
-                    parenthesisCounter++;
-                }
-
-                if (infix[i] == ')')
-                {
-                    parenthesisCounter--;
-                }
-
-                if (parenthesisCounter < 0)
-                {
-                    throw new InvalidFormatException(") must be preceded by a (");
-                }
-
-                if (i + indexCounter == infix.Length)
-                    break;
-            }
-
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
             bool prevIsOperator = false;    // distinguishes minus and negative operators
@@ -164,7 +140,23 @@ namespace Assignment1
                     prevIsOperator = true;
                 }
 
-                indexCounter = 0;
+                int parenthesisCounter = 0;
+                if (parenthesisCounter >= 0 && infix[i] == '(')
+                {
+                    parenthesisCounter++;
+                }
+
+                if (infix[i] == ')')
+                {
+                    parenthesisCounter--;
+                }
+
+                if (parenthesisCounter < 0)
+                {
+                    throw new InvalidFormatException(") must be preceded by a (");
+                }
+
+                int indexCounter = 0;
                 int decimalCounter = 0;
                 while (                                 // checking number values
                     Char.IsDigit(infix[i + indexCounter])
