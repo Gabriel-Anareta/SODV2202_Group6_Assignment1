@@ -8,5 +8,9 @@ namespace Assignment1
 {
     internal class ExpressionFormator
     {
+        public string InfixToPostfix()
+        {
+
+        }
     }
 }
