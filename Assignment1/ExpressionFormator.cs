@@ -14,6 +14,8 @@ namespace Assignment1
             Stack<char> stack = new Stack<char>();
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
+            bool prevIsOperator = false;    // distinguishes minus and negative operators
+
             for (int i = 0; i < infix.Length; i++)
             {
                 if (infix[i] == ' ') continue;  // function ignores whitespaces in expression bewteen operators and operands
@@ -22,6 +24,7 @@ namespace Assignment1
                 if (                                // checking for negatives
                     infix[i] == '-'
                     && Char.IsDigit(infix[i + 1])
+                    && prevIsOperator
                 )
                 {
                     isPositive = false;
@@ -29,6 +32,8 @@ namespace Assignment1
 
                 if (operators.Contains(infix[i]) && isPositive)     // checking for operators
                 {
+                    prevIsOperator = true;
+
                     if (stack.Count == 0)
                     {
                         stack.Push(infix[i]);
@@ -45,6 +50,8 @@ namespace Assignment1
                     stack.Push(infix[i]);
                     continue;
                 }
+
+                prevIsOperator = false;
 
                 if (infix[i] == '(')
                 {
