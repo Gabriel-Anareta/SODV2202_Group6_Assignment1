@@ -97,9 +97,14 @@ namespace Assignment1
             return double.Parse(new string(root.Value.ToArray()));  // if node is a leaf node return number found at node
         }
 
-        public override string ToString()
+        public override string ToString()   // For debugging of tree
         {
             return "";
+        }
+
+        public string CreateTreeString(Node root)
+        {
+
         }
     }
 }
