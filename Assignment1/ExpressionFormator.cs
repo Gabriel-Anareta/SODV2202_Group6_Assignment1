@@ -27,7 +27,24 @@ namespace Assignment1
                     isPositive = false;
                 }
 
+                if (operators.Contains(infix[i]) && isPositive)     // checking for operators
+                {
+                    if (stack.Count == 0)
+                    {
+                        stack.Push(infix[i]);
+                        continue;
+                    }
 
+                    while (/* priority checking */)  // keep popping stack until latest item in stack has a lower priority than checked item
+                    {
+                        char popped = stack.Pop();
+                        postfix.Append(popped + " ");
+                        if (stack.Count == 0) break;
+                    }
+
+                    stack.Push(infix[i]);
+                    continue;
+                }
             }
 
             return "";
