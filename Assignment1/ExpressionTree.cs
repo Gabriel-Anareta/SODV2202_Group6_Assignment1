@@ -12,7 +12,12 @@ namespace Assignment1
 
         public void SetRoot(string postfix)
         {
-            Root = null;
+            Root = CreateRoot(postfix);
+        }
+
+        public Node CreateRoot(string postfix)
+        {
+
         }
     }
 }
