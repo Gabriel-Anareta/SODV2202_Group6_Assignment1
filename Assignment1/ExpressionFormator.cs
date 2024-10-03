@@ -45,6 +45,23 @@ namespace Assignment1
                     stack.Push(infix[i]);
                     continue;
                 }
+
+                if (infix[i] == '(')
+                {
+                    stack.Push(infix[i]);
+                    continue;
+                }
+
+                if (infix[i] == ')')
+                {
+                    while (stack.Peek() != '(')     // keep popping stack until space between () is empty
+                    {
+                        postfix.Append(stack.Pop() + " ");
+                    }
+
+                    stack.Pop();
+                    continue;
+                }
             }
 
             return "";
