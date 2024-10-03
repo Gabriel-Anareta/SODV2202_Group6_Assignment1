@@ -79,7 +79,12 @@ namespace Assignment1
                 i += counter - 1;
             }
 
-            return "";
+            while (stack.Count > 0)   // after infix has been looped through, push all remaining operations in stack
+            {
+                postfix.Append(stack.Pop() + " ");
+            }
+
+            return postfix.ToString().Trim();
         }
 
         public int SetPriority(char symbol)
