@@ -29,7 +29,8 @@ namespace Assignment1
 
             for (int i = 0; i < postfix.Length; i++)
             {
-                if (postfix[i] == ' ') continue;
+                if (postfix[i] == ' ') 
+                    continue;
 
                 bool isPositive = true;
                 if (i + 1 != postfix.Length)    // checking for index bounds
@@ -58,7 +59,8 @@ namespace Assignment1
                     )
                     {
                         numValue.Append(postfix[i + counter++]);
-                        if (i + counter == postfix.Length) break;
+                        if (i + counter == postfix.Length) 
+                            break;
                     }
 
                     i += counter - 1;
@@ -73,7 +75,8 @@ namespace Assignment1
 
         public double Evaluate(Node root)
         {
-            if (root == null) return 0;
+            if (root == null) 
+                return 0;
 
             List<string> operands = new List<string> { "*", "/", "+", "-" };
 
@@ -112,7 +115,8 @@ namespace Assignment1
 
         public string CreateTreeString(Node root)   // Can create tree string dynamically based on given node of tree
         {
-            if (root == null) return "";
+            if (root == null) 
+                return "";
 
             if (root.Left == null && root.Right == null)
                 return root.Value;
