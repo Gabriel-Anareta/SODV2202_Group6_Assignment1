@@ -21,7 +21,6 @@ namespace Assignment1
 
                 expTree.SetRoot(postfix);
                 double eval = expTree.Evaluate(expTree.Root);
-                eval = Math.Round(eval * 100) / 100;
 
                 return eval.ToString();
             }

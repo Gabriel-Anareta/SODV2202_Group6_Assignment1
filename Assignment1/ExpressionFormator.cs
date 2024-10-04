@@ -22,7 +22,7 @@ namespace Assignment1
             Stack<char> stack = new Stack<char>();
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
-            bool prevIsOperator = false;    // distinguishes minus and negative operators
+            bool prevIsOperator = true;    // distinguishes minus and negative operators
 
             for (int i = 0; i < infix.Length; i++)
             {
