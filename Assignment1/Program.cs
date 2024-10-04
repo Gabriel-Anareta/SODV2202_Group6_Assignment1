@@ -12,7 +12,25 @@ namespace Assignment1
             try
             {
                 // TODO Evaluate the expression and return the result
-                return "";
+
+                ExpressionFormator expForm = new ExpressionFormator();
+                ExpressionTree expTree = new ExpressionTree();
+
+                expForm.InfixCheck(input);
+                string postfix = expForm.InfixToPostfix(input);
+
+                expTree.SetRoot(postfix);
+                double eval = expTree.Evaluate(expTree.Root);
+
+                return eval.ToString();
+            }
+            catch (DivideByZeroException e)
+            {
+                return "Evaluation Error: " + e.Message;
+            }
+            catch (InvalidFormatException e)
+            {
+                return "Input format error: " + e.Message;
             }
             catch (Exception e)
             {
