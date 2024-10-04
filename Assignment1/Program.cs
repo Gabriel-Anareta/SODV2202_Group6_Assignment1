@@ -12,7 +12,18 @@ namespace Assignment1
             try
             {
                 // TODO Evaluate the expression and return the result
-                return "";
+
+                ExpressionFormator expForm = new ExpressionFormator();
+                ExpressionTree expTree = new ExpressionTree();
+
+                expForm.InfixCheck(input);
+                string postfix = expForm.InfixToPostfix(input);
+
+                expTree.SetRoot(postfix);
+                double eval = expTree.Evaluate(expTree.Root);
+                eval = Math.Round(eval * 100) / 100;
+
+                return eval.ToString();
             }
             catch (Exception e)
             {
