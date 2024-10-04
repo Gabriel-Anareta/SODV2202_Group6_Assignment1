@@ -120,93 +120,95 @@ namespace Assignment1
         {
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
-            bool prevIsOperator = false;    // distinguishes minus and negative operators
-            bool prevIsNumber = false;      // records previous type
+            bool prevIsOperator = true;    // used to record previous entry type
+            int parenthesisCounter = 0;
 
             for (int i = 0; i < infix.Length; i++)
             {
-                if (infix[i] == ' ') continue;  // function ignores whitespaces in expression bewteen operators and operands
+                if (infix[i] == ' ') // function ignores whitespaces in expression bewteen operators and operands
+                    continue;
 
                 bool isPositive = true;
-                if (                                // checking for negatives
-                    infix[i] == '-'
-                    && Char.IsDigit(infix[i + 1])
-                    && prevIsOperator
-                )
+                if (i + 1 != infix.Length)              // ensure initial negative check is in index bounds
                 {
-                    isPositive = false;
+                    if (                                // checking for negatives
+                        infix[i] == '-'
+                        && Char.IsDigit(infix[i + 1])
+                        && prevIsOperator
+                    )
+                    {
+                        isPositive = false;
+                    }
                 }
 
-                if (operators.Contains(infix[i]) && isPositive)     // checking for operators
+                // begin checking on operators
+                // block checks any instances of invalid format closely proceding operator
+
+                if (operators.Contains(infix[i]) && isPositive)     // checking on operators
                 {
-                    prevIsOperator = true;
-                    prevIsNumber = false;
+                    if (prevIsOperator)
+                        throw new InvalidFormatException("Operations can only follow a number");
 
                     bool foundNextChar = true;
-                    int nextCharCounter = 0;
+                    int counter = 0;
                     while (foundNextChar)   // check for empty space in front of operators
                     {
-                        if (infix[i + nextCharCounter] != ' ')
+                        if (infix[i + counter] != ' ')  // if not whitespace, check further
                         {
-                            if (infix[i + nextCharCounter] == ')')
+                            if (infix[i + counter] == ')')
                                 throw new InvalidFormatException("operations cannot be directly followed by )");
-                            
+
+                            bool isNextPositive = true;
+                            if (i + counter + 1 != infix.Length)
+                            {
+                                if (                                // checking for following negatives 
+                                    infix[i + counter] == '-'
+                                    && Char.IsDigit(infix[i + counter + 1])
+                                    && prevIsOperator
+                                )
+                                {
+                                    isNextPositive = false;
+                                }
+
+                                if (
+                                    infix[i + counter + 1] == '0'
+                                    && infix[i] == '/'
+                                )
+                                {
+                                    throw new InvalidFormatException("Cannot divide by zero");
+                                }
+                            }
+
+                            if (operators.Contains(infix[i + counter]) && !isNextPositive)
+                                throw new InvalidFormatException("operators must be followed by an operand");
+
                             foundNextChar = false;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                            
-                        nextCharCounter++;
-                        if (i + nextCharCounter == infix.Length)
-                            throw new InvalidFormatException("operations must be followed by an operand");
-
-                        i += nextCharCounter - 1;
-                    }
-
-                    int counter = 0;
-                    while (true)
-                    {
-                        if (infix[i + counter] == ' ')
-                            continue;
-
-                        if (                                // checking for negatives
-                            infix[i] == '-'
-                            && Char.IsDigit(infix[i + counter + 1])
-                        )
-                        {
-                            isPositive = false;
-                        }
-
-                        if (operators.Contains(infix[i + counter]) && !isPositive)
-                            throw new InvalidFormatException("operators must be followed by an operand");
-
-                        if (
-                            infix[i + counter + 1] == '0'
-                            && infix[i] == '/'
-                        )
-                        {
-                            throw new InvalidFormatException("Cannot divide by zero");
                         }
 
                         counter++;
-                        if (i + counter == infix.Length)
-                            break;
+                        if (i + counter == infix.Length && !foundNextChar)
+                            throw new InvalidFormatException("operations must be followed by an operand");
                     }
 
                     i += counter - 1;
+                    prevIsOperator = true;
                     continue;
                 }
 
-                int parenthesisCounter = 0;
+                // begin parenthesis checking 
+                // if ( is found, increment parenthesis count only if no invalid ) have already been found
+                // if ) is found, decrement parenthesis count and check for valid nesting of parenthesis
+
                 if (infix[i] == '(')
                 {
                     if (parenthesisCounter >= 0)
                         parenthesisCounter++;
 
-                    if (prevIsNumber) 
+                    if (!prevIsOperator)
                         throw new InvalidFormatException("( must follow an operator");
+
+                    prevIsOperator = true;
+                    continue;
                 }
 
                 if (infix[i] == ')')
@@ -215,12 +217,22 @@ namespace Assignment1
 
                     if (prevIsOperator)
                         throw new InvalidFormatException(") must follow a number");
+
+                    if (parenthesisCounter < 0)
+                        throw new InvalidFormatException(") must be preceded by a (");
+
+                    if (parenthesisCounter > 0 && i + 1 == infix.Length)
+                        throw new InvalidFormatException("all ( must be closed by a proceding )");
+
+                    prevIsOperator = false;
+                    continue;
                 }
 
-                if (parenthesisCounter < 0)
-                {
-                    throw new InvalidFormatException(") must be preceded by a (");
-                }
+                // begin number checking
+                // checks number formating - assumes next space or operator means a end to current number
+
+                if (!prevIsOperator)
+                    throw new InvalidFormatException("Numbers must be followed by an operation");
 
                 int indexCounter = 0;
                 int decimalCounter = 0;
@@ -230,19 +242,20 @@ namespace Assignment1
                     || (infix[i + indexCounter] == '-' && indexCounter == 0)
                 )
                 {
-                    if (infix[i + indexCounter] == '.') 
+                    if (infix[i + indexCounter] == '.')
                         decimalCounter += 1;
 
                     if (decimalCounter > 1)
                         throw new InvalidFormatException("Numbers can only have 1 decimal point");
+
+                    indexCounter++;
+                    prevIsOperator = false;
 
                     if (i + indexCounter == infix.Length)
                         break;
                 }
 
                 i += indexCounter - 1;
-                prevIsOperator = false;
-                prevIsNumber = true;
             }
         }
     }
