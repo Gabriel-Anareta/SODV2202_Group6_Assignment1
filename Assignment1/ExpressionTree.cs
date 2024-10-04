@@ -21,7 +21,7 @@ namespace Assignment1
             Root = CreateRoot(postfix);
         }
 
-        public Node CreateRoot(string postfix)
+        public Node CreateRoot(string postfix)  // assumes postfix is correctly formated
         {
             Stack<Node> stack = new Stack<Node>();
             Node current;

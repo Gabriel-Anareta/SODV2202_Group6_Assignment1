@@ -116,7 +116,7 @@ namespace Assignment1
             return 0;
         }
 
-        public void InfixCheck(string infix)
+        public void InfixCheck(string infix)    // function throws errors if a format exception is found
         {
             List<char> operators = new List<char> { '*', '/', '+', '-' };
 
