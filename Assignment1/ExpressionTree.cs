@@ -92,7 +92,7 @@ namespace Assignment1
                         return right * left;
                     case "/":
                         if (left == 0)
-                            throw new DivideByZeroException("cannot divide by zero");
+                            throw new DivideByZeroException("evaluation found a divide by zero -> " + right + " / " + left);
 
                         Console.WriteLine(right + " / " + left + " = " + (right / left));
                         return right / left;
