@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 
 namespace Assignment1
 {
+    public class InvalidFormatException : Exception
+    {
+        public InvalidFormatException(string message) : base(message) { }
+    }
+
     internal class ExpressionFormator
     {
-        public class InvalidFormatException : Exception
-        {
-            public InvalidFormatException(string message) : base(message) { }
-        }
-
         public string InfixToPostfix(string infix)
         {
             StringBuilder postfix = new StringBuilder();
