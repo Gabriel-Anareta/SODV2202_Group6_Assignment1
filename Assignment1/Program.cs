@@ -25,6 +25,14 @@ namespace Assignment1
 
                 return eval.ToString();
             }
+            catch (DivideByZeroException e)
+            {
+                return "Evaluation Error: " + e.Message;
+            }
+            catch (InvalidFormatException e)
+            {
+                return "Input format error: " + e.Message;
+            }
             catch (Exception e)
             {
                 return "Error evaluating expression: " + e;
